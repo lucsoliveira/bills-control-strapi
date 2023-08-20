@@ -1,5 +1,17 @@
-'use strict';
+"use strict";
+
+"use strict";
+const pluginPkg = require("../package.json");
+const pluginId = pluginPkg.name.replace(
+  /^(@[^-,.][\w,-]+\/|strapi-)plugin-/i,
+  ""
+);
+const name = pluginPkg.strapi.name;
 
 module.exports = ({ strapi }) => {
-  // registeration phase
+  strapi.customFields.register({
+    name: name,
+    plugin: pluginId,
+    type: "string",
+  });
 };
