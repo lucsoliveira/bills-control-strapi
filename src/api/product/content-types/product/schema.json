@@ -20,6 +20,16 @@
     "colorPicker": {
       "type": "customField",
       "customField": "plugin::custom-field-color-picker.custom-field-color-picker"
+    },
+    "photos": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
     }
   }
 }

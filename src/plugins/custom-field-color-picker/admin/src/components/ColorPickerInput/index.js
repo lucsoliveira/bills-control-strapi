@@ -1,6 +1,10 @@
-import React, { useRef, useState } from "react";
+"use strict";
 
-const Input = ({
+import React, { useEffect, useRef, useState } from "react";
+import { TextBox } from "../TextBox";
+import "./colorpicker.css";
+
+const ColorPickerInput = ({
   attribute,
   description,
   disabled,
@@ -14,21 +18,71 @@ const Input = ({
 }) => {
   const [colorSelected, setColorSelected] = useState(null);
 
+  const saveDataObj = (name, value, type) => {
+    return {
+      name: name,
+      value: value,
+      type: type,
+    };
+  };
+  useEffect(() => {
+    if (colorSelected) {
+      onChange({
+        target: saveDataObj(name, colorSelected, attribute.type),
+      });
+    }
+  }, [colorSelected]);
+
+  useEffect(() => {
+    if (value && value !== "") {
+      setColorSelected(value);
+    }
+  }, [value]);
   return (
     <div>
-      <input
-        type="color"
-        value={colorSelected}
-        onChange={(event) => {
-          setColorSelected(event.target.value);
-        }}
-      />
-      {colorSelected}
+      {name}
+
+      <br />
+      <div style={style.box}>
+        <div>
+          <input
+            className="colorpicker"
+            style={{
+              height: "40px",
+            }}
+            type="color"
+            value={colorSelected}
+            onClick={() => {
+              console.log("entrou no click");
+            }}
+            onChange={(event) => {
+              setColorSelected(event.target.value);
+            }}
+          />
+        </div>
+
+        <div>
+          <TextBox
+            required={required}
+            disabled={true}
+            value={colorSelected ? colorSelected : null}
+            placeholder={"Selecione uma cor"}
+          />
+        </div>
+      </div>
     </div>
   );
 };
 
-Input.defaultProps = {
+const style = {
+  box: {
+    display: "flex",
+    marginTop: "0.7em",
+    flex: "1 10",
+  },
+};
+
+ColorPickerInput.defaultProps = {
   description: null,
   disabled: false,
   error: null,
@@ -37,17 +91,4 @@ Input.defaultProps = {
   value: "",
 };
 
-// Input.propTypes = {
-//   intlLabel: PropTypes.object.isRequired,
-//   onChange: PropTypes.func.isRequired,
-//   attribute: PropTypes.object.isRequired,
-//   name: PropTypes.string.isRequired,
-//   description: PropTypes.object,
-//   disabled: PropTypes.bool,
-//   error: PropTypes.string,
-//   labelAction: PropTypes.object,
-//   required: PropTypes.bool,
-//   value: PropTypes.string,
-// };
-
-export default Input;
+export default ColorPickerInput;
