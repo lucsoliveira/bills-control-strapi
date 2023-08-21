@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { TextBox } from "../TextBox";
 import "./colorpicker.css";
-
+import { eyeDropperApi } from "../eyedropper";
 const ColorPickerInput = ({
   attribute,
   description,
@@ -17,6 +17,7 @@ const ColorPickerInput = ({
   value,
 }) => {
   const [colorSelected, setColorSelected] = useState(null);
+  const [canUseEyeDropper, setCanUseEyeDropper] = useState(false);
 
   const saveDataObj = (name, value, type) => {
     return {
@@ -38,6 +39,14 @@ const ColorPickerInput = ({
       setColorSelected(value);
     }
   }, [value]);
+
+  useEffect(() => {
+    if (!Boolean("EyeDropper" in window)) {
+      setCanUseEyeDropper(false);
+    } else {
+      setCanUseEyeDropper(true);
+    }
+  }, []);
   return (
     <div>
       {name}
@@ -45,20 +54,32 @@ const ColorPickerInput = ({
       <br />
       <div style={style.box}>
         <div>
-          <input
-            className="colorpicker"
-            style={{
-              height: "40px",
-            }}
-            type="color"
-            value={colorSelected}
-            onClick={() => {
-              console.log("entrou no click");
-            }}
-            onChange={(event) => {
-              setColorSelected(event.target.value);
-            }}
-          />
+          {canUseEyeDropper && (
+            <button
+              type="button"
+              onClick={() => {
+                eyeDropperApi().run({
+                  setColorSelected,
+                });
+              }}
+            >
+              Conta Gotas
+            </button>
+          )}
+
+          {!canUseEyeDropper && (
+            <input
+              className="colorpicker"
+              style={{
+                height: "40px",
+              }}
+              type="color"
+              value={colorSelected}
+              onChange={(event) => {
+                setColorSelected(event.target.value);
+              }}
+            />
+          )}
         </div>
 
         <div>
