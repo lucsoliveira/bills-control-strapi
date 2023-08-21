@@ -4,6 +4,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { TextBox } from "../TextBox";
 import "./colorpicker.css";
 import { eyeDropperApi } from "../eyedropper";
+import { IconButton } from "@strapi/design-system";
+import { Pencil } from "@strapi/icons";
 const ColorPickerInput = ({
   attribute,
   description,
@@ -55,16 +57,42 @@ const ColorPickerInput = ({
       <div style={style.box}>
         <div>
           {canUseEyeDropper && (
-            <button
-              type="button"
-              onClick={() => {
-                eyeDropperApi().run({
-                  setColorSelected,
-                });
+            <div
+              style={{
+                display: "flex",
               }}
             >
-              Conta Gotas
-            </button>
+              <button
+                type="button"
+                onClick={() => {
+                  eyeDropperApi().run({
+                    setColorSelected,
+                  });
+                }}
+              >
+                Conta Gotas
+              </button>
+
+              <IconButton
+                onClick={() => {
+                  eyeDropperApi().run({
+                    setColorSelected,
+                  });
+                }}
+                label="Conta Gotas"
+                icon={<Pencil />}
+              />
+
+              <div
+                style={{
+                  backgroundColor: colorSelected,
+                  width: "2.1em",
+                  height: "2.1em",
+                  borderRadius: "0.5em",
+                  border: "2px solid #F4F4F4",
+                }}
+              ></div>
+            </div>
           )}
 
           {!canUseEyeDropper && (
