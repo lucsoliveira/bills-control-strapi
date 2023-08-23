@@ -1,5 +1,7 @@
 "use strict";
 
+const { buildInitialRoles } = require("./bootstrap/buildInitialRoles");
+
 module.exports = {
   /**
    * An asynchronous register function that runs before
@@ -17,5 +19,16 @@ module.exports = {
    * This gives you an opportunity to set up your data model,
    * run jobs, or perform some special logic.
    */
-  bootstrap(/*{ strapi }*/) {},
+  async bootstrap({ strapi }) {
+    await buildInitialRoles(strapi, [
+      {
+        name: "ADMIN",
+        permissions: [],
+      },
+      {
+        name: "Editor",
+        permissions: [],
+      },
+    ]);
+  },
 };
