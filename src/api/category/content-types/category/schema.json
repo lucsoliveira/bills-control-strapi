@@ -4,7 +4,8 @@
   "info": {
     "singularName": "category",
     "pluralName": "categories",
-    "displayName": "Category"
+    "displayName": "Category",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -16,6 +17,18 @@
       "unique": true,
       "minLength": 1,
       "required": true
+    },
+    "account": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::account.account"
+    },
+    "icon": {
+      "type": "enumeration",
+      "enum": [
+        "TRASH",
+        "PENCIL"
+      ]
     }
   }
 }

@@ -715,6 +715,7 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
     singularName: 'category';
     pluralName: 'categories';
     displayName: 'Category';
+    description: '';
   };
   options: {
     draftAndPublish: false;
@@ -726,6 +727,12 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
       Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
+    account: Attribute.Relation<
+      'api::category.category',
+      'oneToOne',
+      'api::account.account'
+    >;
+    icon: Attribute.Enumeration<['TRASH', 'PENCIL']>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
