@@ -781,6 +781,16 @@ export interface ApiRegistryRegistry extends Schema.CollectionType {
     dateInitial: Attribute.DateTime;
     dateFinal: Attribute.DateTime;
     status: Attribute.Boolean;
+    value: Attribute.Float &
+      Attribute.Required &
+      Attribute.SetMinMax<{
+        min: 0;
+      }>;
+    parentRegistry: Attribute.Relation<
+      'api::registry.registry',
+      'oneToOne',
+      'api::registry.registry'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
