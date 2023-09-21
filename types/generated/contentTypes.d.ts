@@ -750,6 +750,54 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
   };
 }
 
+export interface ApiRegistryRegistry extends Schema.CollectionType {
+  collectionName: 'registries';
+  info: {
+    singularName: 'registry';
+    pluralName: 'registries';
+    displayName: 'Registry';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    account: Attribute.Relation<
+      'api::registry.registry',
+      'oneToOne',
+      'api::account.account'
+    >;
+    category: Attribute.Relation<
+      'api::registry.registry',
+      'oneToOne',
+      'api::category.category'
+    >;
+    supplier: Attribute.Relation<
+      'api::registry.registry',
+      'oneToOne',
+      'api::supplier.supplier'
+    >;
+    type: Attribute.Enumeration<['ENTRADA', 'SAIDA']>;
+    dateInitial: Attribute.DateTime;
+    dateFinal: Attribute.DateTime;
+    status: Attribute.Boolean;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::registry.registry',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::registry.registry',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiSupplierSupplier extends Schema.CollectionType {
   collectionName: 'suppliers';
   info: {
@@ -801,6 +849,7 @@ declare module '@strapi/strapi' {
       'plugin::i18n.locale': PluginI18NLocale;
       'api::account.account': ApiAccountAccount;
       'api::category.category': ApiCategoryCategory;
+      'api::registry.registry': ApiRegistryRegistry;
       'api::supplier.supplier': ApiSupplierSupplier;
     }
   }

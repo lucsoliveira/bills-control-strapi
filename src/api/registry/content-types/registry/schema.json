@@ -1,0 +1,47 @@
+{
+  "kind": "collectionType",
+  "collectionName": "registries",
+  "info": {
+    "singularName": "registry",
+    "pluralName": "registries",
+    "displayName": "Registry",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "account": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::account.account"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::category.category"
+    },
+    "supplier": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::supplier.supplier"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "ENTRADA",
+        "SAIDA"
+      ]
+    },
+    "dateInitial": {
+      "type": "datetime"
+    },
+    "dateFinal": {
+      "type": "datetime"
+    },
+    "status": {
+      "type": "boolean"
+    }
+  }
+}
