@@ -1,6 +1,4 @@
-"use strict";
-
-module.exports = {
+export default {
   /**
    * An asynchronous register function that runs before
    * your application is initialized.
@@ -10,8 +8,7 @@ module.exports = {
   register(/*{ strapi }*/) {},
 
   /**
-   * An asynchronous
-   * bootstrap function that runs before
+   * An asynchronous bootstrap function that runs before
    * your application gets started.
    *
    * This gives you an opportunity to set up your data model,

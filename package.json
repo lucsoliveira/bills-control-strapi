@@ -1,5 +1,5 @@
 {
-  "name": "my-project",
+  "name": "bills-control",
   "private": true,
   "version": "0.1.0",
   "description": "A Strapi application",
@@ -7,29 +7,23 @@
     "develop": "strapi develop",
     "start": "strapi start",
     "build": "strapi build",
-    "strapi": "strapi",
-    "prepare": "husky install"
+    "strapi": "strapi"
   },
-  "devDependencies": {
-    "@commitlint/cli": "^17.6.3",
-    "@commitlint/config-conventional": "^17.6.3",
-    "husky": "^8.0.3"
-  },
+  "devDependencies": {},
   "dependencies": {
-    "@strapi/plugin-color-picker": "^4.12.5",
-    "@strapi/plugin-i18n": "4.10.5",
-    "@strapi/plugin-users-permissions": "4.10.5",
-    "@strapi/strapi": "4.10.5",
-    "better-sqlite3": "8.0.1"
+    "@strapi/strapi": "4.13.7",
+    "@strapi/plugin-users-permissions": "4.13.7",
+    "@strapi/plugin-i18n": "4.13.7",
+    "better-sqlite3": "8.6.0"
   },
   "author": {
     "name": "A Strapi developer"
   },
   "strapi": {
-    "uuid": "0862649b-41f2-453d-a590-8477f0fbef19"
+    "uuid": "c2dd96e4-455e-4ca5-b5cb-6984cb9c0e90"
   },
   "engines": {
-    "node": ">=14.19.1 <=18.x.x",
+    "node": ">=16.0.0 <=20.x.x",
     "npm": ">=6.0.0"
   },
   "license": "MIT"
