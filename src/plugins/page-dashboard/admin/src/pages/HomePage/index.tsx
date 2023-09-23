@@ -1,10 +1,10 @@
 /*
  *
- * HomePage
+ * Dashboard - Home
  *
  */
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import pluginId from "../../pluginId";
 import {
   BaseHeaderLayout,
@@ -13,22 +13,29 @@ import {
   Button,
 } from "@strapi/design-system";
 import { ArrowLeft } from "@strapi/icons";
-import { Plus } from "@strapi/icons";
 
 import { HeaderBox } from "../../../../../../admin/shared/HeaderBox";
+import { AccountSelector } from "./components/AccountSelector";
 
 const HomePage = () => {
+  const [account, setAccount] = useState(null);
+
+  useEffect(() => {
+    console.log({ account });
+  }, [account]);
   return (
     <div>
       <HeaderBox
         title="Dashboard"
-        subtitle="Apenas um teste"
+        subtitle="Resumo das transações"
         navigationActions={{
           icon: <ArrowLeft />,
           path: "/",
           text: "Voltar",
         }}
-        primaryAction={<Button startIcon={<Plus />}>Add an entry</Button>}
+        primaryAction={
+          <AccountSelector account={account} setAccount={setAccount} />
+        }
       />
       asd
     </div>
