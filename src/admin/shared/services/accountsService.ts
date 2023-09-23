@@ -1,3 +1,4 @@
+import { getClient } from "./index";
 type AccountItemDTO = {
   id: number;
   name: string;
@@ -7,7 +8,7 @@ type AccountItemDTO = {
   updatedBy: any;
 };
 
-export const AccountsService = (getClient: any) => ({
+export const AccountsService = (get: any = getClient) => ({
   listAll: async (): Promise<{
     success: Boolean;
     accounts: AccountItemDTO[];
@@ -20,7 +21,7 @@ export const AccountsService = (getClient: any) => ({
         data: {
           results: AccountItemDTO[];
         };
-      } = await getClient(url);
+      } = await get(url);
 
       const { data } = result;
       const { results } = data;

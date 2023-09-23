@@ -13,17 +13,20 @@ import { HeaderBox } from "../../../../../../admin/shared/HeaderBox";
 import { AccountSelector } from "./components/AccountSelector";
 import "./dash.css";
 import "../../../../../../admin/shared/style/page.css";
-import {
-  getFetchClient,
-  useCMEditViewDataManager,
-} from "@strapi/helper-plugin";
-const { get, post } = getFetchClient();
+import { useCMEditViewDataManager } from "@strapi/helper-plugin";
 
 import { AccountsService } from "../../../../../../admin/shared/services/accountsService";
+import { CategoriesService } from "../../../../../../admin/shared/services/categoriesService";
 
 const HomePage = () => {
   const { modifiedData } = useCMEditViewDataManager();
 
+  const [categories, setCategories] = useState<
+    {
+      name: string;
+      value: number;
+    }[]
+  >([]);
   const [account, setAccount] = useState(null);
   const [accounts, setAccounts] = useState<
     {
@@ -33,7 +36,7 @@ const HomePage = () => {
   >([]);
 
   useEffect(() => {
-    AccountsService(get)
+    AccountsService()
       .listAll()
       .then((result) => {
         if (result.success) {
@@ -50,7 +53,26 @@ const HomePage = () => {
   }, []);
 
   useEffect(() => {
-    console.log({ account });
+    if (account) {
+      CategoriesService()
+        .filter({
+          accountId: account,
+          pageNumber: 1,
+          pageSize: 100,
+        })
+        .then((result) => {
+          if (result.success) {
+            const arrayAux = result.categories.map((item) => {
+              return {
+                name: item.name,
+                value: item.id,
+              };
+            });
+
+            setCategories(arrayAux);
+          }
+        });
+    }
   }, [account]);
   return (
     <div className="content">
@@ -78,6 +100,8 @@ const HomePage = () => {
         </div>
         <div className="div-chart-categories small-shadow">
           <Typography variant="epsilon">Despesas por Categoria</Typography>
+
+          {JSON.stringify(categories)}
         </div>
       </div>
     </div>
