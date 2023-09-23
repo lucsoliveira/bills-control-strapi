@@ -5,6 +5,7 @@ import { SingleSelectInput } from "../../../../../../../../admin/shared/inputs/S
 export const AccountSelector = ({ account, setAccount }) => {
   return (
     <SingleSelectInput
+      legend="Relatório de Conta"
       placeHolder="Selecione uma conta"
       values={[
         {

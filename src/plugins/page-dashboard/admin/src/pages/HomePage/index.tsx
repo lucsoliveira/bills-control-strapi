@@ -10,13 +10,15 @@ import {
   BaseHeaderLayout,
   HeaderLayout,
   Box,
+  Flex,
   Button,
+  Typography,
 } from "@strapi/design-system";
 import { ArrowLeft } from "@strapi/icons";
 
 import { HeaderBox } from "../../../../../../admin/shared/HeaderBox";
 import { AccountSelector } from "./components/AccountSelector";
-
+import "./dash.css";
 const HomePage = () => {
   const [account, setAccount] = useState(null);
 
@@ -24,7 +26,7 @@ const HomePage = () => {
     console.log({ account });
   }, [account]);
   return (
-    <div>
+    <div className="page-dashboard">
       <HeaderBox
         title="Dashboard"
         subtitle="Resumo das transações"
@@ -37,7 +39,16 @@ const HomePage = () => {
           <AccountSelector account={account} setAccount={setAccount} />
         }
       />
-      asd
+      Seletor mes <br />
+      Box Estatistica Geral <br />
+      <div className="box-timeline-chart small-shadow">
+        <div className="div-timeline">
+          <Typography variant="epsilon">Linha do Tempo</Typography>
+        </div>
+        <div className="div-chart-categories small-shadow">
+          <Typography variant="epsilon">Despesas por Categoria</Typography>
+        </div>
+      </div>
     </div>
   );
 };
