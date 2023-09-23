@@ -727,9 +727,9 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
       Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
-    account: Attribute.Relation<
+    accounts: Attribute.Relation<
       'api::category.category',
-      'oneToOne',
+      'oneToMany',
       'api::account.account'
     >;
     icon: Attribute.Enumeration<['TRASH', 'PENCIL']>;

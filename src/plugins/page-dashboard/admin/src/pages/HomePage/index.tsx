@@ -6,14 +6,7 @@
 
 import React, { useEffect, useState } from "react";
 import pluginId from "../../pluginId";
-import {
-  BaseHeaderLayout,
-  HeaderLayout,
-  Box,
-  Flex,
-  Button,
-  Typography,
-} from "@strapi/design-system";
+import { Typography } from "@strapi/design-system";
 import { ArrowLeft } from "@strapi/icons";
 
 import { HeaderBox } from "../../../../../../admin/shared/HeaderBox";
@@ -26,14 +19,7 @@ import {
 } from "@strapi/helper-plugin";
 const { get, post } = getFetchClient();
 
-type AccountItemDTO = {
-  id: number;
-  name: string;
-  createdAt: string;
-  updatedAt: string;
-  createdBy: any;
-  updatedBy: any;
-};
+import { AccountsService } from "../../../../../../admin/shared/services/accountsService";
 
 const HomePage = () => {
   const { modifiedData } = useCMEditViewDataManager();
@@ -47,48 +33,20 @@ const HomePage = () => {
   >([]);
 
   useEffect(() => {
-    const fetchAccounts = async (): Promise<{
-      success: Boolean;
-      accounts: AccountItemDTO[];
-      error?: any;
-    }> => {
-      try {
-        const url =
-          "/content-manager/collection-types/api::account.account?page=1&pageSize=10&sort=name:ASC";
-        const result: {
-          data: {
-            results: AccountItemDTO[];
-          };
-        } = await get(url);
+    AccountsService(get)
+      .listAll()
+      .then((result) => {
+        if (result.success) {
+          const accountsAux = result.accounts.map((item) => {
+            return {
+              name: item.name,
+              value: item.id,
+            };
+          });
 
-        const { data } = result;
-        const { results } = data;
-
-        return {
-          success: true,
-          accounts: results,
-        };
-      } catch (error) {
-        return {
-          success: false,
-          accounts: [],
-          error,
-        };
-      }
-    };
-
-    fetchAccounts().then((result) => {
-      if (result.success) {
-        const accountsAux = result.accounts.map((item) => {
-          return {
-            name: item.name,
-            value: item.id,
-          };
-        });
-
-        setAccounts(accountsAux);
-      }
-    });
+          setAccounts(accountsAux);
+        }
+      });
   }, []);
 
   useEffect(() => {
